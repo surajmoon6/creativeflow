@@ -1,0 +1,24 @@
+# Run on any Linux server with Docker:  docker compose up -d --build
+# Needs a .env next to this file (copy .env.example): SECRET_KEY, PUBLIC_URL, DOMAIN.
+services:
+  app:
+    build: .
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      SESSION_COOKIE_SECURE: "1"
+    volumes:
+      - data:/data
+  caddy:
+    image: caddy:2
+    restart: unless-stopped
+    ports: ["80:80", "443:443"]
+    environment:
+      DOMAIN: ${DOMAIN}
+    command: caddy reverse-proxy --from ${DOMAIN} --to app:8000
+    volumes:
+      - caddy:/data
+    depends_on: [app]
+volumes:
+  data:
+  caddy:

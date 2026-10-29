@@ -1,0 +1,21 @@
+.env
+.venv/
+backend/.secret_key
+backend/*.db
+backend/*.db-shm
+backend/*.db-wal
+backend/*.db.bak
+storage/private/*
+!storage/private/.gitkeep
+frontend/node_modules/
+frontend/dist/
+__pycache__/
+.pytest_cache/
+.DS_Store
+*.tsbuildinfo
+
+# Personal material that is not part of the software
+demo-screens/
+notelac-video/
+notelac-style-frames/
+.claude/

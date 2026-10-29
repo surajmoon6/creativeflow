@@ -1,0 +1,66 @@
+@import "tailwindcss";
+@import "@fontsource-variable/geist";
+
+@theme {
+  --font-sans: "Geist Variable", ui-sans-serif, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --color-canvas: #F4F5F7;
+  --color-surface: #FFFFFF;
+  --color-ink: #15171C;
+  --color-ink-2: #393E4A;
+  --color-muted: #6A7080;
+  --color-faint: #9CA1AE;
+  --color-line: #E2E4E9;
+  --color-line-soft: #EDEEF1;
+  --color-stage: #E9EAEE;
+  --color-ok: #17845A;
+  --color-ok-soft: #E6F4EE;
+  --color-warn: #A86A0B;
+  --color-warn-soft: #FBF1DF;
+  --color-bad: #C23B3B;
+  --color-bad-soft: #FBEAEA;
+  --color-info: #2F62C9;
+  --color-info-soft: #E8EFFC;
+}
+
+@theme inline {
+  --color-brand: var(--brand, #4F46E5);
+  --color-brand-soft: color-mix(in srgb, var(--brand, #4F46E5) 10%, white);
+}
+
+@layer base {
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    @apply bg-canvas text-ink font-sans antialiased;
+    font-feature-settings: "ss01", "cv11";
+    font-size: 14px;
+    line-height: 1.5;
+  }
+  :focus-visible { outline: 2px solid var(--brand, #4F46E5); outline-offset: 2px; border-radius: 4px; }
+  button { cursor: pointer; }
+  button:disabled { cursor: not-allowed; }
+  input, textarea, select { font: inherit; }
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+  }
+}
+
+/* Printer's crop marks around the creative: the client page's one signature detail. */
+.crop-stage { position: relative; }
+.crop-stage > .crop { position: absolute; width: 22px; height: 22px; pointer-events: none; }
+.crop-stage > .crop::before, .crop-stage > .crop::after { content: ""; position: absolute; background: #8C92A0; }
+.crop-stage > .crop::before { width: 22px; height: 1px; }
+.crop-stage > .crop::after { width: 1px; height: 22px; }
+.crop.tl { top: -14px; left: -14px; } .crop.tl::before { top: 13px; left: 0 } .crop.tl::after { top: 0; left: 13px }
+.crop.tr { top: -14px; right: -14px; } .crop.tr::before { top: 13px; right: 0 } .crop.tr::after { top: 0; right: 13px }
+.crop.bl { bottom: -14px; left: -14px; } .crop.bl::before { bottom: 13px; left: 0 } .crop.bl::after { bottom: 0; left: 13px }
+.crop.br { bottom: -14px; right: -14px; } .crop.br::before { bottom: 13px; right: 0 } .crop.br::after { bottom: 0; right: 13px }
+
+.no-save { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; -webkit-user-drag: none; }
+
+@keyframes sheet-in { from { transform: translateY(16px); opacity: 0 } to { transform: none; opacity: 1 } }
+.sheet-in { animation: sheet-in 180ms ease-out; }
+
+@media print {
+  .no-print { display: none !important; }
+  body { background: white; }
+}

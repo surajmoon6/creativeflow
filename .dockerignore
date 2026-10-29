@@ -1,0 +1,12 @@
+.venv
+.env
+.git
+frontend/node_modules
+frontend/dist
+backend/*.db
+backend/.secret_key
+backend/.pytest_cache
+**/__pycache__
+storage
+notelac-style-frames
+notelac-video
